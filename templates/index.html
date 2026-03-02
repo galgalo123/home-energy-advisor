@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Energy Advisor</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f0f4f8; }
+    h1 { color: #2c7a4b; }
+    label { display: block; margin: 15px 0 5px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+    button { margin-top: 20px; padding: 10px 25px; background: #2c7a4b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #1f5c37; }
+  </style>
+</head>
+<body>
+  <h1>🏠 Home Energy-Saving Advisor</h1>
+  <p>Fill in your household details to get personalised energy-saving tips.</p>
+
+  <form action="/recommend" method="POST">
+    <label>Your Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Monthly Electricity Bill ($):</label>
+    <input type="number" name="monthly_bill" min="0" required>
+
+    <label>Home Size:</label>
+    <select name="home_size">
+      <option value="small">Small (1–2 rooms)</option>
+      <option value="medium">Medium (3–4 rooms)</option>
+      <option value="large">Large (5+ rooms)</option>
+    </select>
+
+    <label>Type of Bulbs Used:</label>
+    <select name="bulb_type">
+      <option value="led">LED</option>
+      <option value="incandescent">Incandescent</option>
+      <option value="fluorescent">Fluorescent</option>
+    </select>
+
+    <label>Appliance Age:</label>
+    <select name="appliance_age">
+      <option value="new">New (under 5 years)</option>
+      <option value="medium">Medium (5–10 years)</option>
+      <option value="old">Old (10+ years)</option>
+    </select>
+
+    <label>
+      <input type="checkbox" name="has_ac" style="width:auto; margin-right:8px;">
+      Has Air Conditioning
+    </label>
+
+    <button type="submit">Get My Recommendations →</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Energy Tips</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f4f0; padding: 30px; }
+    h1 { color: #2d6a2d; }
+    .summary { background: #fff; border-radius: 10px; padding: 15px 20px; margin-bottom: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .card { background: #fff; border-left: 5px solid #2d6a2d; border-radius: 8px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .card.high { border-left-color: #c0392b; }
+    .card.medium { border-left-color: #e67e22; }
+    .card.low { border-left-color: #27ae60; }
+    .meta { font-size: 0.85em; color: #777; margin-bottom: 6px; }
+    .tip { font-size: 1em; color: #222; }
+    a { display: inline-block; margin-top: 25px; background: #2d6a2d; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; }
+    a:hover { background: #245224; }
+  </style>
+</head>
+<body>
+  <h1>🏠 Energy Tips for {{ name }}</h1>
+
+  <div class="summary">
+    <strong>{{ tips|length }} recommendation(s) generated</strong> based on your household profile.
+  </div>
+
+  {% for tip in tips %}
+    {% if "High" in tip.priority %}
+      <div class="card high">
+    {% elif "Medium" in tip.priority %}
+      <div class="card medium">
+    {% else %}
+      <div class="card low">
+    {% endif %}
+      <div class="meta">{{ tip.priority }} &nbsp;|&nbsp; 📂 {{ tip.category }}</div>
+      <div class="tip">{{ tip.tip }}</div>
+    </div>
+  {% endfor %}
+
+  <a href="/">← Analyse Another Household</a>
+</body>
+</html>
