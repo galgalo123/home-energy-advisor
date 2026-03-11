@@ -1,54 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Home Energy Advisor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Energy-Saving Advisor</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f0f4f8; }
-    h1 { color: #2c7a4b; }
-    label { display: block; margin: 15px 0 5px; font-weight: bold; }
-    input, select { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
-    button { margin-top: 20px; padding: 10px 25px; background: #2c7a4b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-    button:hover { background: #1f5c37; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f4f0; padding: 30px; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 35px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h1 { color: #2d6a2d; font-size: 1.8em; margin-bottom: 6px; }
+    .subtitle { color: #666; font-size: 0.95em; margin-bottom: 25px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; margin-top: 18px; font-size: 0.95em; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1em; }
+    .ksh-wrapper { position: relative; }
+    .ksh-wrapper span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #555; font-size: 0.95em; }
+    .ksh-wrapper input { padding-left: 48px; }
+    .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+    .checkbox-row input { width: auto; }
+    .checkbox-row label { margin: 0; font-weight: bold; }
+    button { margin-top: 28px; width: 100%; padding: 13px; background: #2d6a2d; color: white; border: none; border-radius: 8px; font-size: 1.05em; cursor: pointer; }
+    button:hover { background: #245224; }
   </style>
 </head>
 <body>
-  <h1>🏠 Home Energy-Saving Advisor</h1>
-  <p>Fill in your household details to get personalised energy-saving tips.</p>
+  <div class="container">
+    <h1>🏠 Home Energy-Saving Advisor</h1>
+    <p class="subtitle">Fill in your household details to get personalised energy-saving tips for your Kenyan home.</p>
 
-  <form action="/recommend" method="POST">
-    <label>Your Name:</label>
-    <input type="text" name="name" required>
+    <form action="/recommend" method="POST">
 
-    <label>Monthly Electricity Bill ($):</label>
-    <input type="number" name="monthly_bill" min="0" required>
+      <label>Your Name:</label>
+      <input type="text" name="name" placeholder="e.g. Wanjiku" required>
 
-    <label>Home Size:</label>
-    <select name="home_size">
-      <option value="small">Small (1–2 rooms)</option>
-      <option value="medium">Medium (3–4 rooms)</option>
-      <option value="large">Large (5+ rooms)</option>
-    </select>
+      <label>Monthly KPLC Bill (KSh):</label>
+      <div class="ksh-wrapper">
+        <span>KSh</span>
+        <input type="number" name="monthly_bill_ksh" placeholder="e.g. 4500" min="0" required>
+      </div>
 
-    <label>Type of Bulbs Used:</label>
-    <select name="bulb_type">
-      <option value="led">LED</option>
-      <option value="incandescent">Incandescent</option>
-      <option value="fluorescent">Fluorescent</option>
-    </select>
+      <label>Home Size:</label>
+      <select name="home_size">
+        <option value="small">Small (bedsitter / 1-bedroom)</option>
+        <option value="medium">Medium (2–3 bedrooms)</option>
+        <option value="large">Large (4+ bedrooms / maisonette)</option>
+      </select>
 
-    <label>Appliance Age:</label>
-    <select name="appliance_age">
-      <option value="new">New (under 5 years)</option>
-      <option value="medium">Medium (5–10 years)</option>
-      <option value="old">Old (10+ years)</option>
-    </select>
+      <label>Type of Bulbs Used:</label>
+      <select name="bulb_type">
+        <option value="led">LED</option>
+        <option value="fluorescent">Fluorescent (CFL)</option>
+        <option value="incandescent">Incandescent (old-style)</option>
+      </select>
 
-    <label>
-      <input type="checkbox" name="has_ac" style="width:auto; margin-right:8px;">
-      Has Air Conditioning
-    </label>
+      <label>Cooking Fuel:</label>
+      <select name="cooking_fuel">
+        <option value="lpg">LPG (Cooking Gas)</option>
+        <option value="charcoal">Charcoal</option>
+        <option value="kerosene">Kerosene</option>
+        <option value="firewood">Firewood</option>
+        <option value="electric">Electric Cooker / Induction</option>
+      </select>
 
-    <button type="submit">Get My Recommendations →</button>
-  </form>
+      <label>Appliance Age:</label>
+      <select name="appliance_age">
+        <option value="new">New (under 5 years)</option>
+        <option value="medium">Medium (5–10 years)</option>
+        <option value="old">Old (10+ years)</option>
+      </select>
+
+      <div class="checkbox-row">
+        <input type="checkbox" name="has_ac" id="has_ac">
+        <label for="has_ac">Has Air Conditioning (AC)</label>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" name="has_geyser" id="has_geyser">
+        <label for="has_geyser">Has Electric Water Heater (Geyser / Instant Shower)</label>
+      </div>
+
+      <button type="submit">Get My Recommendations →</button>
+    </form>
+  </div>
 </body>
 </html>

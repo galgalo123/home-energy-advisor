@@ -1,3 +1,5 @@
+# database.py — Kenya Home Energy-Saving Advisor
+
 import sqlite3
 
 def get_connection():
@@ -9,20 +11,24 @@ def create_tables():
     conn = get_connection()
     conn.execute('''
         CREATE TABLE IF NOT EXISTS households (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            monthly_bill REAL,
-            home_size TEXT,
-            bulb_type TEXT,
-            has_ac INTEGER,
-            appliance_age TEXT
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            name            TEXT,
+            monthly_bill_ksh REAL,
+            home_size       TEXT,
+            bulb_type       TEXT,
+            has_ac          INTEGER,
+            appliance_age   TEXT,
+            cooking_fuel    TEXT,
+            has_geyser      INTEGER
         )
     ''')
     conn.execute('''
         CREATE TABLE IF NOT EXISTS recommendations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            household_id INTEGER,
-            tip TEXT,
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            household_id    INTEGER,
+            tip             TEXT,
+            category        TEXT,
+            priority        TEXT,
             FOREIGN KEY (household_id) REFERENCES households(id)
         )
     ''')
